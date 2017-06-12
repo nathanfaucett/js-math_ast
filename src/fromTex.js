@@ -1,4 +1,5 @@
-var TexLexer = require("./lexer/TexLexer"),
+var ast = require("./ast"),
+    TexLexer = require("./lexer/TexLexer"),
     TexParser = require("./parser/TexParser");
 
 
@@ -7,7 +8,12 @@ module.exports = fromTex;
 
 function fromTex(tex) {
     var lexer = new TexLexer(tex),
-        parser = new TexParser(lexer.collect());
+        tokens = lexer.collect(),
+        parser = new TexParser(tokens);
 
-    return parser.parse();
+    if (tokens.length !== 0) {
+        return parser.parse();
+    } else {
+        return new ast.Empty();
+    }
 }

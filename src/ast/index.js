@@ -3,6 +3,7 @@ var ast = exports;
 
 ast.AST = require("./AST");
 ast.BinaryOperation = require("./BinaryOperation");
+ast.Empty = require("./Empty");
 ast.Function = require("./Function");
 ast.Group = require("./Group");
 ast.Number = require("./Number");

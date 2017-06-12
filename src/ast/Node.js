@@ -1,6 +1,9 @@
 var inherits = require("@nathanfaucett/inherits");
 
 
+var NodePrototype;
+
+
 module.exports = Node;
 
 
@@ -12,3 +15,12 @@ Node.extend = function(Child) {
     inherits(Child, this);
     return Child;
 };
+
+NodePrototype = Node.prototype;
+
+
+NodePrototype.toString = function() {
+    return "";
+};
+
+NodePrototype.toLex = NodePrototype.toString;
