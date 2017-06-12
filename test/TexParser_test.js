@@ -2,14 +2,11 @@ var tape = require("tape"),
     math = require("..");
 
 
-var TexLexer = math.TexLexer,
-    TexParser = math.TexParser;
+var fromTex = math.fromTex;
 
 
 tape("TexParser", function(assert) {
-    var lexer = new TexLexer("\\sqrt{\\frac{2}{1} + -x}"),
-        parser = new TexParser(lexer.collect()),
-        ast = parser.parse();
+    var ast = fromTex("\\sqrt{\\frac{2}{1} + -x}");
 
     assert.deepEquals(ast, {
         type: "AST.FUNCTION",
@@ -48,45 +45,48 @@ tape("TexParser", function(assert) {
 });
 
 tape("TexParser order of ops", function(assert) {
-    var lexer = new TexLexer("-(1 + 2 - 3 * 4 / 5)"),
-        parser = new TexParser(lexer.collect()),
-        ast = parser.parse();
+    var ast = fromTex("-(1 + 2 - 3 * 4 / 5)");
 
     assert.deepEquals(ast, {
         type: "AST.UNARY_OPERATION",
         operation: "-",
         expr: {
-            type: "AST.BINARY_OPERATION",
-            operation: "-",
-            left: {
+            type: "AST.GROUP",
+            open: "(",
+            close: ")",
+            expr: {
                 type: "AST.BINARY_OPERATION",
-                operation: "+",
+                operation: "-",
                 left: {
-                    type: "AST.NUMBER",
-                    value: "1"
-                },
-                right: {
-                    type: "AST.NUMBER",
-                    value: "2"
-                }
-            },
-            right: {
-                type: "AST.BINARY_OPERATION",
-                operation: "*",
-                left: {
-                    type: "AST.NUMBER",
-                    value: "3"
-                },
-                right: {
                     type: "AST.BINARY_OPERATION",
-                    operation: "/",
+                    operation: "+",
                     left: {
                         type: "AST.NUMBER",
-                        value: "4"
+                        value: "1"
                     },
                     right: {
                         type: "AST.NUMBER",
-                        value: "5"
+                        value: "2"
+                    }
+                },
+                right: {
+                    type: "AST.BINARY_OPERATION",
+                    operation: "*",
+                    left: {
+                        type: "AST.NUMBER",
+                        value: "3"
+                    },
+                    right: {
+                        type: "AST.BINARY_OPERATION",
+                        operation: "/",
+                        left: {
+                            type: "AST.NUMBER",
+                            value: "4"
+                        },
+                        right: {
+                            type: "AST.NUMBER",
+                            value: "5"
+                        }
                     }
                 }
             }
@@ -100,11 +100,16 @@ tape("TexParser order of ops", function(assert) {
 });
 
 tape("TexParser complex", function(assert) {
-    var lexer = new TexLexer("\\frac{\\frac{2}{3}}{\\frac{1}{2}}}"),
-        parser = new TexParser(lexer.collect()),
-        ast = parser.parse();
+    var ast = fromTex("\\frac{\\frac{2}{3}}{\\frac{1}{2}}}");
 
     assert.equals(ast.toTex(), "\\frac{\\frac{2}{3}}{\\frac{1}{2}}");
 
+    assert.end();
+});
+
+tape("TexParser power", function(assert) {
+    assert.equals(fromTex("2^x").toTex(), "2 ^ x");
+    assert.equals(fromTex("0^0").toTex(), "0 ^ 0");
+    assert.equals(fromTex("0^{x + 2}").toTex(), "0 ^ {x + 2}");
     assert.end();
 });

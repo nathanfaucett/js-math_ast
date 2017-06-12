@@ -13,6 +13,7 @@ function symbols(input, state) {
         case '-':
         case '*':
         case '/':
+        case '^':
         case '|':
         case '{':
         case '}':

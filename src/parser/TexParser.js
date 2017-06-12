@@ -50,11 +50,11 @@ function TexParser_parsePrimaryExpr(_this) {
         case TOKENS.SYMBOL:
             switch (token.value) {
                 case '|':
-                    return TexParser_parseGroupExpr(_this, '|');
+                    return TexParser_parseGroupExpr(_this, '|', '|', false);
                 case '(':
-                    return TexParser_parseGroupExpr(_this, ')');
+                    return TexParser_parseGroupExpr(_this, '(', ')', false);
                 case '{':
-                    return TexParser_parseGroupExpr(_this, '}');
+                    return TexParser_parseGroupExpr(_this, '{', '}', false);
                 case '-':
                     return new ast.UnaryOperation(token.value, TexParser_parsePrimaryExpr(_this));
                 default:
@@ -72,7 +72,7 @@ function TexParser_parseTexIdentifierExpr(_this, name) {
 
     while (token && token.type === TOKENS.SYMBOL && token.value === '{') {
         TexParser_consume(_this, 1);
-        args.push(TexParser_parseGroupExpr(_this, '}'));
+        args.push(TexParser_parseGroupExpr(_this, '{', '}', true));
         token = TexParser_peekToken(_this, 0);
     }
 
@@ -89,12 +89,16 @@ function TexParser_parseTexIdentifierExpr(_this, name) {
     }
 }
 
-function TexParser_parseGroupExpr(_this, end) {
+function TexParser_parseGroupExpr(_this, open, close, isArg) {
     var expr = TexParser_parseExpr(_this),
         token = TexParser_nextToken(_this);
 
-    if (token && token.type === TOKENS.SYMBOL && token.value === end) {
-        return expr;
+    if (token && token.type === TOKENS.SYMBOL && token.value === close) {
+        if (isArg) {
+            return expr;
+        } else {
+            return new ast.Group(open, close, expr);
+        }
     } else {
         throw new Error("Invalid token " + JSON.stringify(token));
     }

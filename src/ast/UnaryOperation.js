@@ -29,19 +29,11 @@ UnaryOperationPrototype.equals = function(other) {
 UnaryOperationPrototype.toString = function() {
     var expr = this.expr;
 
-    return this.operation + (
-        expr.type === AST.NUMBER || expr.type === AST.VARIABLE ?
-        expr.toString() :
-        "(" + expr.toString() + ")"
-    );
+    return this.operation + expr.toString();
 };
 
 UnaryOperationPrototype.toTex = function() {
     var expr = this.expr;
 
-    return this.operation + (
-        expr.type === AST.NUMBER || expr.type === AST.VARIABLE ?
-        expr.toTex() :
-        "(" + expr.toTex() + ")"
-    );
+    return this.operation + expr.toTex();
 };
