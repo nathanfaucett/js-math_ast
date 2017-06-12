@@ -1,0 +1,44 @@
+{
+  "name": "@nathanfaucett/math_ast",
+  "version": "0.0.1",
+  "description": "math ast",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathanfaucett/js-math_ast.git"
+  },
+  "main": "src/index.js",
+  "keywords": [
+    "math",
+    "math.js",
+    "ast",
+    "math_ast",
+    "math_ast.js"
+  ],
+  "scripts": {
+    "test": "npm run test-node",
+    "test-node": "node ./test | ./node_modules/.bin/tap-spec",
+    "test-node-raw": "node ./test",
+    "test-browser-local": "zuul --local 9999 --ui tape -- ./test"
+  },
+  "author": "Nathan Faucett",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "@nathanfaucett/task": "^0.0.8",
+    "gulp-jsbeautifier": "^2.1.0",
+    "gulp-jshint": "^2.0.4",
+    "jshint": "^2.9.4",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3",
+    "zuul": "^3.11.1"
+  },
+  "dependencies": {
+    "@nathanfaucett/array-filter": "^0.0.1",
+    "@nathanfaucett/array-map": "^0.0.1",
+    "@nathanfaucett/inherits": "^0.0.3",
+    "@nathanfaucett/is_alphanumeric": "^0.0.1",
+    "@nathanfaucett/is_numeric": "^0.0.1",
+    "@nathanfaucett/is_whitespace": "^0.0.1",
+    "@nathanfaucett/lexer": "^0.0.4"
+  }
+}

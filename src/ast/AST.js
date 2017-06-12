@@ -1,0 +1,6 @@
+module.exports = {
+    "BINARY_OPERATION": "AST.BINARY_OPERATION",
+    "FUNCTION": "AST.FUNCTION",
+    "NUMBER": "AST.NUMBER",
+    "VARIABLE": "AST.VARIABLE"
+};
