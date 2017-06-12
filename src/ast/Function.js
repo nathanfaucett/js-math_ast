@@ -52,7 +52,7 @@ FunctionPrototype.toString = function() {
         case "frac":
             return this.args[0].toString() + " / " + this.args[1].toString();
         default:
-            return this.name + "(" + arrayMap(this.args, nodeToString).join("") + ")";
+            return this.name + "(" + arrayMap(this.args, nodeToString).join(", ") + ")";
     }
 };
 

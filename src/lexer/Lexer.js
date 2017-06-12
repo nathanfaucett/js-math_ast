@@ -2,17 +2,17 @@ var BaseLexer = require("@nathanfaucett/lexer"),
     readers = require("./readers");
 
 
-module.exports = TexLexer;
+module.exports = Lexer;
 
 
-function TexLexer(input) {
+function Lexer(input) {
     BaseLexer.call(this, input);
 
     this.add(readers.number)
         .add(readers.symbols)
-        .add(readers.texIdentifier)
+        .add(readers.identifier)
         .add(readers.variable)
         .add(readers.whitespace)
         .sort();
 }
-BaseLexer.extend(TexLexer);
+BaseLexer.extend(Lexer);

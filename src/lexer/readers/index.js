@@ -1,3 +1,4 @@
+exports.identifier = require("./identifier");
 exports.number = require("./number");
 exports.symbols = require("./symbols");
 exports.texIdentifier = require("./texIdentifier");
