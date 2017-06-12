@@ -55,12 +55,14 @@ function TexParser_parsePrimaryExpr(_this) {
                     return TexParser_parseGroupExpr(_this, ')');
                 case '{':
                     return TexParser_parseGroupExpr(_this, '}');
+                case '-':
+                    return new ast.UnaryOperation(token.value, TexParser_parsePrimaryExpr(_this));
                 default:
-                    throw new Error("Invalid token " + token);
+                    throw new Error("Invalid token " + JSON.stringify(token));
             }
             break;
         default:
-            throw new Error("Invalid token " + token);
+            throw new Error("Invalid token " + JSON.stringify(token));
     }
 }
 
@@ -94,7 +96,7 @@ function TexParser_parseGroupExpr(_this, end) {
     if (token && token.type === TOKENS.SYMBOL && token.value === end) {
         return expr;
     } else {
-        throw new Error("Invalid token " + token);
+        throw new Error("Invalid token " + JSON.stringify(token));
     }
 }
 

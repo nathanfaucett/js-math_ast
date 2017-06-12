@@ -12,6 +12,7 @@ function symbols(input, state) {
         case '+':
         case '-':
         case '*':
+        case '/':
         case '|':
         case '{':
         case '}':
@@ -22,4 +23,4 @@ function symbols(input, state) {
             return Lexer.NO_TOKEN;
     }
 }
-symbols.priority = 3;
+symbols.priority = 4;

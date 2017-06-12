@@ -8,12 +8,17 @@ module.exports = number;
 
 function number(input, state) {
     var ch = input.read(state),
+        nextCh = input.peek(state, 0),
         dotRead = ch === '.',
+        negRead = ch === '-' && isNumeric(nextCh),
         string;
 
-    if (isNumeric(ch) || dotRead) {
+    if (isNumeric(ch) || dotRead || negRead) {
         if (dotRead) {
             string = "0.";
+        } else if (negRead) {
+            input.read(state);
+            string = '-' + nextCh;
         } else {
             string = ch;
         }
@@ -42,4 +47,4 @@ function number(input, state) {
         return Lexer.NO_TOKEN;
     }
 }
-number.priority = 4;
+number.priority = 2;

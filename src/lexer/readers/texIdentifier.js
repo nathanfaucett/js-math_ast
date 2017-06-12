@@ -29,4 +29,4 @@ function texIdentifier(input, state) {
         return Lexer.NO_TOKEN;
     }
 }
-texIdentifier.priority = 2;
+texIdentifier.priority = 3;
