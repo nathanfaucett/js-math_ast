@@ -17,6 +17,13 @@ function Variable(name) {
 Node.extend(Variable);
 VariablePrototype = Variable.prototype;
 
+VariablePrototype.equals = function(other) {
+    return (
+        this.type === other.type &&
+        this.name === other.name
+    );
+};
+
 VariablePrototype.toString = function() {
     return this.name;
 };

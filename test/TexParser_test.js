@@ -35,6 +35,7 @@ tape("TexLexer", function(assert) {
             }
         }]
     });
+    assert.equals(ast.equals(ast), true);
     assert.equals(ast.toString(), "sqrt(2 / 1 + 1)");
     assert.equals(ast.toTex(), "\\sqrt{\\frac{2}{1} + 1}");
 

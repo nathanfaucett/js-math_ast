@@ -19,6 +19,15 @@ function BinaryOperation(operation, left, right) {
 Node.extend(BinaryOperation);
 BinaryOperationPrototype = BinaryOperation.prototype;
 
+BinaryOperationPrototype.equals = function(other) {
+    return (
+        this.type === other.type &&
+        this.operation === other.operation &&
+        this.left.equals(other.left) &&
+        this.right.equals(other.right)
+    );
+};
+
 BinaryOperationPrototype.toString = function() {
     return (
         this.left.toString() +
